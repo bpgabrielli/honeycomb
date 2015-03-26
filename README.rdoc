@@ -1,28 +1,39 @@
-== README
+## [Honeycomb](http://honeycomb-analytics.herokuapp.com)
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Paste the following snippet into your javascript file to set up tracking for your website. Alternatively, nest it between <script> tags </script>, and paste it right before the closing </body> tag of any pages you want to track.
 
-Things you may want to cover:
+```
+<script>
+var unique_key = <insert unique key here>
+var endpoint = "http://honeycomb-analytics.herokuapp.com/api/v1/events"
 
-* Ruby version
+var honeycomb = function(event_name, label, value) {
+  var honey_event = {
+    'event':
+    {
+      name: event_name,
+      property_1: label,
+      property_2: value,
+      url: window.location.href
+    },
+    unique_key: unique_key
+  }
+  var honey_request = new XMLHttpRequest();
+      honey_request.open("POST", endpoint, true);
+      honey_request.setRequestHeader('Content-Type', 'application/json');
+      honey_request.onreadystatechange = function() {
 
-* System dependencies
+      };
+      honey_request.send(JSON.stringify(honey_event));
+};
+honeycomb("pageview");
+</script>
+```
+Make sure you replace "<insert unique key here>" with the one assigned to you when you [sign up](http://honeycomb-analytics.herokuapp.com/users/sign_up)!
 
-* Configuration
+Also: Paste this snippet directly into an HTML element to track clicks (like in a link, in the example below):
+```
+<a href="#" onClick="honeycomb('click', 'video', 'play');">Play Video</a>
 
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
-
-
-Please feel free to use a different markup language if you do not plan to run
-<tt>rake doc:app</tt>.
+```
+The first parameter ('Click') refers to the event action or category, and the other two ('Video' and 'Play') are optional custom properties. Rename these to describe the context/thing being clicked, or whatever makes sense for you.

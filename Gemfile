@@ -53,3 +53,12 @@ end
 gem 'devise'
 
 gem 'bootstrap-sass'
+
+gem 'chartjs-ror'
+
+gem 'faker'
+
+gem 'rack-cors', :require => 'rack/cors'
+
+gem 'groupdate'
+

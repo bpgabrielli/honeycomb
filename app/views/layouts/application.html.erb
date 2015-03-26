@@ -7,8 +7,44 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
+  <div class="container">
+    <div class="header">
+        <%= link_to "Honeycomb", root_path, class: 'nav-link'%>
 
-<%= yield %>
+        <div class="pull-right user-info">
+          <% if current_user %>
+            <%= link_to "Dashboard", events_path, method: :options, class: 'nav-link' %>
+            <%= link_to "Sign out", destroy_user_session_path, method: :delete, class: 'nav-link' %>
+          <% else %>
+            <%= link_to "Sign in", new_user_session_path, class: 'nav-link' %>
+            <%= link_to "Sign up", new_user_registration_path, class: 'nav-link' %>
+          <% end %>
+        </div>
+    </div>
 
+    <% if flash[:notice] %>
+      <div class="alert alert-success">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        <%= flash[:notice] %>
+      </div>
+    <% elsif flash[:error] %>
+      <div class="alert alert-danger">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        <%= flash[:error] %>
+      </div>
+    <% elsif flash[:alert] %>
+      <div class]"alert alert-warning">
+        <button type="button" class="close" data-dismis="alert">&times;</button>
+        <%= flash[:alert] %>
+      </div>
+    <% end %>
+
+
+    <div class="container container-body">
+      <div class="inner cover center-block">
+        <%= yield %>
+      </div>
+    </div>
+  </div>
 </body>
 </html>

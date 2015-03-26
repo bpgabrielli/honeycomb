@@ -1,0 +1,62 @@
+<h2><%= "#{current_user.email}'s app metrics" %></h2>
+<p><%= "Unique Key: #{current_user.unique_key}" %></p>
+
+<canvas id="events" width="600" height="400"></canvas>
+  <%= javascript_tag do %>
+    var eventData = {
+    labels: <%= raw @month_labels %>,
+    datasets: [
+        {
+            label: "Page Visits",
+            fillColor: "rgba(220,220,220,0.2)",
+            strokeColor: "rgba(220,220,220,1)",
+            pointColor: "rgba(220,220,220,1)",
+            pointStrokeColor: "#fff",
+            pointHighlightFill: "#fff",
+            pointHighlightStroke: "rgba(220,220,220,1)",
+            data: <%= raw @pagevisit_count %>
+            },
+        {
+            label: "Clicks",
+            fillColor: "rgba(151,187,205,0.2)",
+            strokeColor: "rgba(151,187,205,1)",
+            pointColor: "rgba(151,187,205,1)",
+            pointStrokeColor: "#fff",
+            pointHighlightFill: "#fff",
+            pointHighlightStroke: "rgba(151,187,205,1)",
+            data: <%= raw @click_count %>
+        }
+        ]
+    };
+    var events= document.getElementById("events").getContext("2d");
+    new Chart(events).Line(eventData);
+  <% end %>
+
+<% if current_user.email == "admin@example.com" %>
+    <script>
+    var unique_key = "b91982343c99"
+    var endpoint = "http://localhost:3000/api/v1/events"
+
+    var honeycomb = function(event_name, label, value) {
+      var honey_event = {
+        'event':
+        {
+          name: event_name,
+          property_1: label,
+          property_2: value,
+          url: window.location.href
+        },
+        unique_key: unique_key
+      }
+      var honey_request = new XMLHttpRequest();
+          honey_request.open("POST", endpoint, true);
+          honey_request.setRequestHeader('Content-Type', 'application/json');
+          honey_request.onreadystatechange = function() {
+
+          };
+          honey_request.send(JSON.stringify(honey_event));
+    };
+    honeycomb("pageview");
+    </script>
+    <a class="btn btn-success" style="" href="#" onClick="honeycomb('click', 'test', 'event');">Test Click</a>
+<% end %>
