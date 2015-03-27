@@ -4,7 +4,7 @@
 <canvas id="events" width="600" height="400"></canvas>
   <%= javascript_tag do %>
     var eventData = {
-    labels: <%= raw @month_labels %>,
+    labels: <%= escape_javascript @pagevisit_chart_data.labeled_frequency_data.keys.to_json %>,
     datasets: [
         {
             label: "Page Visits",
@@ -14,7 +14,7 @@
             pointStrokeColor: "#fff",
             pointHighlightFill: "#fff",
             pointHighlightStroke: "rgba(220,220,220,1)",
-            data: <%= raw @pagevisit_count %>
+            data: <%= escape_javascript @pagevisit_chart_data.labeled_frequency_data.values.to_json %>
             },
         {
             label: "Clicks",
@@ -24,7 +24,7 @@
             pointStrokeColor: "#fff",
             pointHighlightFill: "#fff",
             pointHighlightStroke: "rgba(151,187,205,1)",
-            data: <%= raw @click_count %>
+            data: <%= escape_javascript @click_count.labeled_frequency_data.values.to_json %>
         }
         ]
     };
