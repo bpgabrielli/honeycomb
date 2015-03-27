@@ -1,11 +1,11 @@
-## [Honeycomb](http://honeycomb-analytics.herokuapp.com)
+##Honeycomb
 
 Paste the following snippet into your javascript file to set up tracking for your website. Alternatively, nest it between <script> tags </script>, and paste it right before the closing </body> tag of any pages you want to track.
 
 ```
 <script>
 var unique_key = <insert unique key here>
-var endpoint = "http://honeycomb-analytics.herokuapp.com/api/v1/events"
+var endpoint = "http://localhost:3000/api/v1/events"
 
 var honeycomb = function(event_name, label, value) {
   var honey_event = {
@@ -29,7 +29,7 @@ var honeycomb = function(event_name, label, value) {
 honeycomb("pageview");
 </script>
 ```
-Make sure you replace "<insert unique key here>" with the one assigned to you when you [sign up](http://honeycomb-analytics.herokuapp.com/users/sign_up)!
+Make sure you replace "<insert unique key here>" with the one assigned to you when you [sign up](http://localhost:3000/users/sign_up)!
 
 Also: Paste this snippet directly into an HTML element to track clicks (like in a link, in the example below):
 ```

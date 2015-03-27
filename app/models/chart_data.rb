@@ -12,9 +12,10 @@ class ChartData
   end
 
   def densify
-    data = pagevisit_count_per_month
+    data = pagevisits_count_per_month
     (data.keys.min..data.keys.max).each do |month|
-    data[month] = data[month] || 0
+      data[month] = data[month] || 0
+    end
   end
 
   def sorted_densified

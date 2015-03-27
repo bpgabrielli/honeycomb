@@ -24,7 +24,7 @@
             pointStrokeColor: "#fff",
             pointHighlightFill: "#fff",
             pointHighlightStroke: "rgba(151,187,205,1)",
-            data: <%= escape_javascript @click_count.labeled_frequency_data.values.to_json %>
+            data: <%= escape_javascript @click_chart_data.labeled_frequency_data.values.to_json %>
         }
         ]
     };
