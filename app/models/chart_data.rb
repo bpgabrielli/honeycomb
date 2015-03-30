@@ -8,7 +8,7 @@ class ChartData
   end
 
   def pagevisits_count_per_month
-    Hash[pagevisit_by_month.map {|m, p| [m, p.count] }]
+    pagevisit_by_month.transform_values { |p| p.count }
   end
 
   def densify
@@ -23,7 +23,7 @@ class ChartData
   end
 
   def labeled_frequency_data
-    Hash[sorted_densified.map {|m, p| [Date::MONTHNAMES[m], p] }]
+    sorted_densified.transform_keys { |m| Date::MONTHNAMES[m] }
   end
 
 end
